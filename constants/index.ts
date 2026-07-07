@@ -524,6 +524,20 @@ export const BRANCHES: Branch[] = [
       { days: "Sabtu – Minggu", hours: "09:00 – 18:00" },
     ],
   },
+  {
+    id: "bali",
+    name: "Melval Labskin Bali",
+    address: "COMING SOON",
+    city: "Bali",
+    phone: "+62 821 4219 6415",
+    whatsapp: "6282142196415",
+    maps: "https://maps.google.com/?q=Melval+Labskin+Bali",
+    image: "/images/branches/bali.jpg",
+    operatingHours: [
+      { days: "Senin – Jumat", hours: "09:00 – 20:00" },
+      { days: "Sabtu – Minggu", hours: "09:00 – 18:00" },
+    ],
+  }
 ];
 
 // ─── Promos ─────────────────────────────────────────────────

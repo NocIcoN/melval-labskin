@@ -109,7 +109,7 @@ export interface Article {
 }
 
 // ─── Branch / Location ──────────────────────────────────────
-export type BranchId = "jakarta" | "malang" | "surabaya";
+export type BranchId = "jakarta" | "malang" | "surabaya" | "bali";
 
 export interface Branch {
   id: BranchId;

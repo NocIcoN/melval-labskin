@@ -4,7 +4,7 @@ import Image from "next/image";
 import SectionHeading from "@/components/ui/SectionHeading";
 import ButtonLink from "@/components/ui/ButtonLink";
 import CTASection from "@/components/sections/CTASection";
-import { DOCTORS, BRANCHES } from "@/constants";
+import { getDoctors, getBranches } from "@/lib/sanity/fetchers";
 import { buildWhatsAppLink } from "@/lib/utils";
 
 export const metadata: Metadata = {
@@ -20,10 +20,11 @@ const TRUST_POINTS = [
   { icon: BadgeCheck, title: "Pengalaman Bertahun-tahun", desc: "Rata-rata pengalaman 6–8 tahun di bidang estetika medis." },
 ];
 
-export default function DoctorsPage() {
+export default async function DoctorsPage() {
+  const [doctors, branches] = await Promise.all([getDoctors(), getBranches()]);
+
   return (
     <>
-      {/* Hero */}
       <section className="bg-gradient-luxury pb-16 pt-32 sm:pt-40">
         <div className="mx-auto max-w-7xl px-6">
           <SectionHeading
@@ -31,8 +32,6 @@ export default function DoctorsPage() {
             title="Perawatanmu di Tangan yang Tepat"
             description="Setiap treatment di Melval Labskin dilakukan dan diawasi langsung oleh dokter bersertifikat. Kepercayaan dan keamanan kamu adalah prioritas utama kami."
           />
-
-          {/* Trust points */}
           <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-3">
             {TRUST_POINTS.map((point) => (
               <div key={point.title} className="flex items-start gap-4 rounded-brand-lg bg-white p-6 shadow-card">
@@ -49,15 +48,13 @@ export default function DoctorsPage() {
         </div>
       </section>
 
-      {/* Doctors grid */}
       <section className="py-section-sm sm:py-section">
         <div className="mx-auto max-w-7xl px-6">
           <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3">
-            {DOCTORS.map((doctor) => {
-              const branch = BRANCHES.find((b) => b.id === doctor.branch);
+            {doctors.map((doctor) => {
+              const branch = branches.find((b) => b.id === doctor.branch);
               return (
-                <div key={doctor.id} className="group rounded-brand-xl bg-white shadow-card transition-all duration-300 hover:-translate-y-1 hover:shadow-card-hover overflow-hidden">
-                  {/* Photo */}
+                <div key={doctor.id} className="group overflow-hidden rounded-brand-xl bg-white shadow-card transition-all duration-300 hover:-translate-y-1 hover:shadow-card-hover">
                   <div className="relative aspect-[3/4] overflow-hidden bg-cream-200">
                     <Image
                       src={doctor.photo}
@@ -71,18 +68,10 @@ export default function DoctorsPage() {
                       <p className="font-inter text-sm text-coral-200">{doctor.specialty}</p>
                     </div>
                   </div>
-
-                  {/* Content */}
                   <div className="p-6">
-                    <p className="font-inter text-sm leading-relaxed text-brand-gray">
-                      {doctor.bio}
-                    </p>
-
-                    {/* Education */}
+                    <p className="font-inter text-sm leading-relaxed text-brand-gray">{doctor.bio}</p>
                     <div className="mt-5">
-                      <h3 className="mb-2 font-inter text-xs font-semibold uppercase tracking-wide text-brand-gray">
-                        Pendidikan
-                      </h3>
+                      <h3 className="mb-2 font-inter text-xs font-semibold uppercase tracking-wide text-brand-gray">Pendidikan</h3>
                       <ul className="space-y-1.5">
                         {doctor.education.map((edu, i) => (
                           <li key={i} className="flex items-start gap-2">
@@ -92,36 +81,21 @@ export default function DoctorsPage() {
                         ))}
                       </ul>
                     </div>
-
-                    {/* Certifications */}
                     <div className="mt-4">
-                      <h3 className="mb-2 font-inter text-xs font-semibold uppercase tracking-wide text-brand-gray">
-                        Sertifikasi
-                      </h3>
+                      <h3 className="mb-2 font-inter text-xs font-semibold uppercase tracking-wide text-brand-gray">Sertifikasi</h3>
                       <div className="flex flex-wrap gap-2">
                         {doctor.certifications.map((cert, i) => (
-                          <span
-                            key={i}
-                            className="rounded-full bg-coral-50 px-3 py-1 font-inter text-xs text-coral-700"
-                          >
-                            {cert}
-                          </span>
+                          <span key={i} className="rounded-full bg-coral-50 px-3 py-1 font-inter text-xs text-coral-700">{cert}</span>
                         ))}
                       </div>
                     </div>
-
-                    {/* Branch + CTA */}
                     <div className="mt-5 flex items-center justify-between border-t border-brand-border pt-4">
                       {branch && (
                         <span className="rounded-full bg-gold-50 px-3 py-1 font-inter text-xs font-medium text-gold-700">
                           📍 {branch.city}
                         </span>
                       )}
-                      <ButtonLink
-                        href={buildWhatsAppLink(`Halo, saya ingin konsultasi dengan ${doctor.name}.`)}
-                        variant="primary"
-                        size="sm"
-                      >
+                      <ButtonLink href={buildWhatsAppLink(`Halo, saya ingin konsultasi dengan ${doctor.name}.`)} variant="primary" size="sm">
                         Konsultasi
                       </ButtonLink>
                     </div>
@@ -133,22 +107,13 @@ export default function DoctorsPage() {
         </div>
       </section>
 
-      {/* Partnership CTA */}
       <section className="bg-cream py-12 sm:py-16">
         <div className="mx-auto max-w-3xl px-6 text-center">
-          <h2 className="font-playfair text-display-xs text-brand-black">
-            Ingin Bergabung Bersama Tim Kami?
-          </h2>
+          <h2 className="font-playfair text-display-xs text-brand-black">Ingin Bergabung Bersama Tim Kami?</h2>
           <p className="mt-3 font-inter text-base text-brand-gray">
-            Melval Labskin membuka peluang kemitraan bagi tenaga medis profesional
-            yang memiliki passion di bidang estetika.
+            Melval Labskin membuka peluang kemitraan bagi tenaga medis profesional yang memiliki passion di bidang estetika.
           </p>
-          <ButtonLink
-            href={buildWhatsAppLink("Halo, saya tertarik untuk bergabung sebagai tenaga medis di Melval Labskin.")}
-            variant="outline"
-            size="lg"
-            className="mt-6"
-          >
+          <ButtonLink href={buildWhatsAppLink("Halo, saya tertarik untuk bergabung sebagai tenaga medis di Melval Labskin.")} variant="outline" size="lg" className="mt-6">
             Hubungi Kami
           </ButtonLink>
         </div>

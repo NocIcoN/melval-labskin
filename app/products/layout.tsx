@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import ProductsClient from "./ProductsClient";
+import { getProducts } from "@/lib/sanity/fetchers";
 
 export const metadata: Metadata = {
   title: "Produk Skincare",
@@ -7,6 +9,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/products" },
 };
 
-export default function ProductsLayout({ children }: { children: React.ReactNode }) {
-  return <>{children}</>;
+export default async function ProductsPage() {
+  const products = await getProducts();
+  return <ProductsClient products={products} />;
 }

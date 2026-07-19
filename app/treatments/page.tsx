@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import TreatmentsClient from "./TreatmentsClient";
+import { getTreatments } from "@/lib/sanity/fetchers";
 
 export const metadata: Metadata = {
   title: "Treatment & Layanan",
@@ -8,6 +9,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/treatments" },
 };
 
-export default function TreatmentsPage() {
-  return <TreatmentsClient />;
+export default async function TreatmentsPage() {
+  const treatments = await getTreatments();
+  return <TreatmentsClient treatments={treatments} />;
 }

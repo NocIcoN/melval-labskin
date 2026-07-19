@@ -21,6 +21,7 @@ export const doctorSchema = defineType({
           { title: "Jakarta", value: "jakarta" },
           { title: "Malang", value: "malang" },
           { title: "Surabaya", value: "surabaya" },
+          { title: "Bali", value: "bali" },
         ],
       },
       validation: (R) => R.required(),

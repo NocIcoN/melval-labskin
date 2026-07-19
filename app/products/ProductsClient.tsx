@@ -1,14 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import type { Metadata } from "next";
 import { Filter } from "lucide-react";
 import SectionHeading from "@/components/ui/SectionHeading";
 import ProductCard from "@/components/features/ProductCard";
 import CTASection from "@/components/sections/CTASection";
-import { PRODUCTS } from "@/constants";
 import { cn } from "@/lib/utils";
-import type { ProductCategory } from "@/types";
+import type { Product, ProductCategory } from "@/types";
 
 const CATEGORIES: { label: string; value: ProductCategory | "all" }[] = [
   { label: "Semua", value: "all" },
@@ -20,15 +18,18 @@ const CATEGORIES: { label: string; value: ProductCategory | "all" }[] = [
   { label: "Mask", value: "mask" },
 ];
 
-export default function ProductsPage() {
+interface Props {
+  products: Product[];
+}
+
+function ProductsClient({ products }: Props) {
   const [active, setActive] = useState<ProductCategory | "all">("all");
 
   const filtered =
-    active === "all" ? PRODUCTS : PRODUCTS.filter((p) => p.category === active);
+    active === "all" ? products : products.filter((p) => p.category === active);
 
   return (
     <>
-      {/* Hero */}
       <section className="bg-gradient-luxury pb-12 pt-32 sm:pt-40">
         <div className="mx-auto max-w-7xl px-6">
           <SectionHeading
@@ -39,7 +40,6 @@ export default function ProductsPage() {
         </div>
       </section>
 
-      {/* Filter */}
       <section className="sticky top-[72px] z-30 border-b border-brand-border bg-white/95 backdrop-blur-md">
         <div className="mx-auto max-w-7xl px-6">
           <div className="flex items-center gap-2 overflow-x-auto py-4 scrollbar-none">
@@ -62,7 +62,6 @@ export default function ProductsPage() {
         </div>
       </section>
 
-      {/* Grid */}
       <section className="py-section-sm sm:py-section">
         <div className="mx-auto max-w-7xl px-6">
           {filtered.length === 0 ? (
@@ -79,7 +78,6 @@ export default function ProductsPage() {
         </div>
       </section>
 
-      {/* Why Melval Skincare banner */}
       <section className="bg-cream py-12 sm:py-16">
         <div className="mx-auto max-w-7xl px-6">
           <div className="grid grid-cols-2 gap-6 sm:grid-cols-4">
@@ -103,3 +101,6 @@ export default function ProductsPage() {
     </>
   );
 }
+
+// Re-export dengan nama yang sama agar layout.tsx tetap bekerja
+export default ProductsClient;

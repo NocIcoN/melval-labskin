@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import SectionHeading from "@/components/ui/SectionHeading";
 import ArticleCard from "@/components/features/ArticleCard";
-import { ARTICLES } from "@/constants";
+import { getArticles } from "@/lib/sanity/fetchers";
 
 export const metadata: Metadata = {
   title: "Artikel & Beauty Hack",
@@ -10,9 +10,9 @@ export const metadata: Metadata = {
   alternates: { canonical: "/articles" },
 };
 
-const CATEGORIES = ["Semua", "Beauty Hack", "Skincare Tips", "Body Treatment", "Beauty Science"];
+export default async function ArticlesPage() {
+  const articles = await getArticles();
 
-export default function ArticlesPage() {
   return (
     <>
       {/* Hero */}
@@ -29,13 +29,13 @@ export default function ArticlesPage() {
       {/* Articles grid */}
       <section className="py-section-sm sm:py-section">
         <div className="mx-auto max-w-7xl px-6">
-          {ARTICLES.length === 0 ? (
+          {articles.length === 0 ? (
             <div className="py-24 text-center">
               <p className="font-inter text-brand-gray">Belum ada artikel yang tersedia.</p>
             </div>
           ) : (
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {ARTICLES.map((article) => (
+              {articles.map((article) => (
                 <ArticleCard key={article.id} article={article} />
               ))}
             </div>

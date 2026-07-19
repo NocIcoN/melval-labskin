@@ -5,29 +5,29 @@ import Image from "next/image";
 import { Flame } from "lucide-react";
 import Badge from "@/components/ui/Badge";
 import ButtonLink from "@/components/ui/ButtonLink";
-import { PROMOS } from "@/constants";
 import { formatCurrency, getCountdown, calculateDiscount } from "@/lib/utils";
+import type { Promo } from "@/types";
+
+interface Props {
+  promo: Promo;
+}
 
 /**
- * Flash sale promo section with a live countdown timer.
- * Client Component — the countdown ticks every second in-browser.
- * Falls back gracefully (no countdown block) if expiresAt is missing or passed.
+ * Client Component — menerima promo sebagai prop dari PromoCountdownWrapper (Server Component).
+ * Countdown timer harus jalan di browser sehingga komponen ini perlu "use client".
  */
-export default function PromoCountdownSection() {
-  const promo = PROMOS.find((p) => p.isFlashSale);
+export default function PromoCountdownSection({ promo }: Props) {
   const [countdown, setCountdown] = useState(
-    promo?.expiresAt ? getCountdown(promo.expiresAt) : null
+    promo.expiresAt ? getCountdown(promo.expiresAt) : null
   );
 
   useEffect(() => {
-    if (!promo?.expiresAt) return;
+    if (!promo.expiresAt) return;
     const interval = setInterval(() => {
       setCountdown(getCountdown(promo.expiresAt!));
     }, 1000);
     return () => clearInterval(interval);
-  }, [promo?.expiresAt]);
-
-  if (!promo) return null;
+  }, [promo.expiresAt]);
 
   const discount =
     promo.originalPrice && promo.discountedPrice
@@ -48,13 +48,11 @@ export default function PromoCountdownSection() {
                 className="object-cover"
               />
             </div>
-
             <div className="flex flex-col justify-center p-8 sm:p-12">
               <div className="flex items-center gap-2">
-                <Flame size={18} className="text-coral-400" />
+                <Flame size={18} className="text-gold" />
                 <Badge variant="gold">{promo.badge}</Badge>
               </div>
-
               <h2 className="mt-4 font-playfair text-display-sm text-white sm:text-display-md">
                 {promo.title}
               </h2>
@@ -66,11 +64,11 @@ export default function PromoCountdownSection() {
                   <span className="font-inter text-base text-white/40 line-through">
                     {formatCurrency(promo.originalPrice)}
                   </span>
-                  <span className="font-playfair text-3xl text-coral-400">
+                  <span className="font-playfair text-3xl text-gold">
                     {formatCurrency(promo.discountedPrice)}
                   </span>
                   {discount && (
-                    <span className="rounded-full bg-coral-500 px-2.5 py-1 font-inter text-xs font-bold text-white">
+                    <span className="rounded-full bg-coral px-2.5 py-1 font-inter text-xs font-bold text-white">
                       -{discount}%
                     </span>
                   )}

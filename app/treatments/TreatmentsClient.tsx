@@ -5,9 +5,8 @@ import { Filter } from "lucide-react";
 import SectionHeading from "@/components/ui/SectionHeading";
 import TreatmentCard from "@/components/features/TreatmentCard";
 import CTASection from "@/components/sections/CTASection";
-import { TREATMENTS } from "@/constants";
 import { cn } from "@/lib/utils";
-import type { TreatmentCategory } from "@/types";
+import type { Treatment, TreatmentCategory } from "@/types";
 
 const CATEGORIES: { label: string; value: TreatmentCategory | "all" }[] = [
   { label: "Semua", value: "all" },
@@ -18,17 +17,20 @@ const CATEGORIES: { label: string; value: TreatmentCategory | "all" }[] = [
   { label: "Aesthetic", value: "aesthetic" },
 ];
 
-export default function TreatmentsClient() {
+interface Props {
+  treatments: Treatment[];
+}
+
+export default function TreatmentsClient({ treatments }: Props) {
   const [active, setActive] = useState<TreatmentCategory | "all">("all");
 
   const filtered =
     active === "all"
-      ? TREATMENTS
-      : TREATMENTS.filter((t) => t.category === active);
+      ? treatments
+      : treatments.filter((t) => t.category === active);
 
   return (
     <>
-      {/* Hero */}
       <section className="bg-gradient-luxury pb-12 pt-32 sm:pt-40">
         <div className="mx-auto max-w-7xl px-6">
           <SectionHeading
@@ -39,7 +41,6 @@ export default function TreatmentsClient() {
         </div>
       </section>
 
-      {/* Filter */}
       <section className="sticky top-[72px] z-30 border-b border-brand-border bg-white/95 backdrop-blur-md">
         <div className="mx-auto max-w-7xl px-6">
           <div className="flex items-center gap-2 overflow-x-auto py-4 scrollbar-none">
@@ -62,7 +63,6 @@ export default function TreatmentsClient() {
         </div>
       </section>
 
-      {/* Grid */}
       <section className="py-section-sm sm:py-section">
         <div className="mx-auto max-w-7xl px-6">
           {filtered.length === 0 ? (

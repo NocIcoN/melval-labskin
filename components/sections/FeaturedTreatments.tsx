@@ -1,14 +1,10 @@
 import SectionHeading from "@/components/ui/SectionHeading";
 import ButtonLink from "@/components/ui/ButtonLink";
 import TreatmentCard from "@/components/features/TreatmentCard";
-import { TREATMENTS } from "@/constants";
+import { getFeaturedTreatments } from "@/lib/sanity/fetchers";
 
-/**
- * Featured treatments grid for the homepage — shows top 3 featured items
- * with a CTA through to the full /treatments listing page.
- */
-export default function FeaturedTreatments() {
-  const featured = TREATMENTS.filter((t) => t.isFeatured).slice(0, 3);
+export default async function FeaturedTreatments() {
+  const featured = await getFeaturedTreatments();
 
   return (
     <section className="py-section-sm sm:py-section">
@@ -18,13 +14,11 @@ export default function FeaturedTreatments() {
           title="Treatment Pilihan untuk Kulit Impianmu"
           description="Setiap perawatan dirancang sesuai kebutuhan dan usia kulit, ditangani langsung oleh dokter profesional bersertifikat."
         />
-
         <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {featured.map((treatment) => (
             <TreatmentCard key={treatment.id} treatment={treatment} />
           ))}
         </div>
-
         <div className="mt-12 text-center">
           <ButtonLink href="/treatments" variant="outline" size="md">
             Lihat Semua Treatment

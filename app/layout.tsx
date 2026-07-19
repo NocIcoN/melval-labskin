@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Playfair_Display, Inter, Poppins } from "next/font/google";
+import { headers } from "next/headers";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import WhatsAppFloatingButton from "@/components/layout/WhatsAppFloatingButton";
@@ -42,9 +43,7 @@ export const metadata: Metadata = {
     "melval labskin",
   ],
   authors: [{ name: "Melval Labskin" }],
-  alternates: {
-    canonical: "/",
-  },
+  alternates: { canonical: "/" },
   openGraph: {
     type: "website",
     locale: "id_ID",
@@ -52,14 +51,7 @@ export const metadata: Metadata = {
     siteName: SEO_DEFAULTS.siteName,
     title: SEO_DEFAULTS.defaultTitle,
     description: SEO_DEFAULTS.defaultDescription,
-    images: [
-      {
-        url: SEO_DEFAULTS.ogImage,
-        width: 1200,
-        height: 630,
-        alt: SEO_DEFAULTS.siteName,
-      },
-    ],
+    images: [{ url: SEO_DEFAULTS.ogImage, width: 1200, height: 630, alt: SEO_DEFAULTS.siteName }],
   },
   twitter: {
     card: "summary_large_image",
@@ -70,25 +62,16 @@ export const metadata: Metadata = {
   robots: {
     index: true,
     follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      "max-image-preview": "large",
-      "max-snippet": -1,
-    },
+    googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1 },
   },
-  icons: {
-    icon: "/favicon.ico",
-    apple: "/apple-touch-icon.png",
-  },
+  icons: { icon: "/favicon.ico", apple: "/apple-touch-icon.png" },
 };
 
-/**
- * Root layout. Renders Navbar/Footer/WhatsApp button once at the app shell
- * level (per request, present on every page) and injects Schema.org
- * MedicalClinic structured data for rich search results.
- */
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const headersList = await headers();
+  const pathname = headersList.get("x-pathname") ?? headersList.get("x-invoke-path") ?? "";
+  const isStudio = pathname.startsWith("/studio");
+
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "MedicalClinic",
@@ -116,15 +99,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <head>
         <script
           type="application/ld+json"
-          // eslint-disable-next-line react/no-danger
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
       <body>
-        <Navbar />
+        {!isStudio && <Navbar />}
         <main>{children}</main>
-        <Footer />
-        <WhatsAppFloatingButton />
+        {!isStudio && <Footer />}
+        {!isStudio && <WhatsAppFloatingButton />}
       </body>
     </html>
   );

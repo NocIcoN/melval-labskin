@@ -54,7 +54,8 @@ function isSanityConfigured(): boolean {
 
 async function fetchSanity<T>(query: string, params?: Record<string, string>): Promise<T[]> {
   try {
-    return await sanityClient.fetch<T[]>(query, params ?? {});
+    const result = await sanityClient.fetch<T[]>(query, params ?? {});
+    return Array.isArray(result) ? result : [];
   } catch {
     return [];
   }

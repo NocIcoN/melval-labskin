@@ -15,8 +15,10 @@ export interface TreatmentCardProps {
  * Pure Server Component; no interactivity required.
  */
 export default function TreatmentCard({ treatment }: TreatmentCardProps) {
-  const lowestPrice = Math.min(...treatment.packages.map((p) => p.price));
-
+const lowestPrice = treatment.packages?.length
+  ? Math.min(...treatment.packages.map((p) => p.price))
+  : 0;
+  
   return (
     <Card className="group flex h-full flex-col">
       <Link href={`/treatments/${treatment.slug}`} className="relative block aspect-[4/3] overflow-hidden">

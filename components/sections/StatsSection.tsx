@@ -11,6 +11,7 @@ import { STATS } from "@/constants";
  */
 export default function StatsSection() {
   const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.3 });
+  if (!STATS || STATS.length === 0) return null;
 
   return (
     <section ref={ref} className="border-y border-brand-border bg-cream py-12 sm:py-16">

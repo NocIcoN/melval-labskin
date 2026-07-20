@@ -4,6 +4,12 @@ import StatsSection from "@/components/sections/StatsSection";
 import CTASection from "@/components/sections/CTASection";
 import FeaturedTreatments from "@/components/sections/FeaturedTreatments";
 import PromoCountdownWrapper from "@/components/sections/PromoCountdownWrapper";
+import DoctorsSection from "@/components/sections/DoctorsSection";
+import ProductsSection from "@/components/sections/ProductsSection";
+import TestimonialsSection from "@/components/sections/TestimonialsSection";
+import ArticlesSection from "@/components/sections/ArticlesSection";
+import FAQSection from "@/components/sections/FAQSection";
+import BeforeAfterSection from "@/components/sections/BeforeAfterSection";
 
 export const metadata: Metadata = {
   title: "Spesialis Infuse Whitening & Slimming Treatment",
@@ -18,6 +24,12 @@ export default function HomePage() {
       <StatsSection />
       <FeaturedTreatments />
       <PromoCountdownWrapper />
+      <BeforeAfterSection />
+      <DoctorsSection />
+      <ProductsSection />
+      <TestimonialsSection />
+      <ArticlesSection />
+      <FAQSection />
       <CTASection />
     </>
   );

@@ -15,17 +15,7 @@ import type {
 export const NAV_ITEMS: NavItem[] = [
   { label: "Beranda", href: "/" },
   { label: "Tentang Kami", href: "/about" },
-  {
-    label: "Treatment",
-    href: "/treatments",
-    children: [
-      { label: "Infus Whitening", href: "/treatments?category=whitening" },
-      { label: "Slimming", href: "/treatments?category=slimming" },
-      { label: "Facial", href: "/treatments?category=facial" },
-      { label: "Body Treatment", href: "/treatments?category=body" },
-      { label: "Aesthetic", href: "/treatments?category=aesthetic" },
-    ],
-  },
+  { label: "Treatment", href: "/treatments" },
   { label: "Produk", href: "/products" },
   { label: "Dokter", href: "/doctors" },
   { label: "Testimoni", href: "/testimonials" },
@@ -52,7 +42,7 @@ export const TREATMENTS: Treatment[] = [
     description:
       "Dirancang khusus untuk usia 15–25 tahun. Formula ringan dengan kandungan Glutathione dan Vitamin C untuk mencerahkan kulit secara menyeluruh.",
     category: "whitening",
-    image: "/images/treatments/snow-white.jpg",
+    image: "",
     duration: "60 menit",
     targetAge: "15–25 tahun",
     benefits: [
@@ -76,7 +66,7 @@ export const TREATMENTS: Treatment[] = [
     description:
       "Varian untuk usia 15–20 tahun dengan dosis yang disesuaikan usia muda namun memberikan hasil optimal.",
     category: "whitening",
-    image: "/images/treatments/double-cell.jpg",
+    image: "",
     duration: "60 menit",
     targetAge: "15–20 tahun",
     benefits: [
@@ -97,7 +87,7 @@ export const TREATMENTS: Treatment[] = [
     description:
       "Untuk usia 25+ dengan formula kompleks yang bekerja 7x lebih cepat dalam memutihkan dan meremajakan kulit.",
     category: "whitening",
-    image: "/images/treatments/chromosome-cell.jpg",
+    image: "",
     duration: "90 menit",
     targetAge: "25 tahun ke atas",
     benefits: [
@@ -128,7 +118,7 @@ export const TREATMENTS: Treatment[] = [
     description:
       "Diformulasikan untuk usia 30 tahun ke atas dengan kandungan vitamin 7x lebih kompleks. Mencerahkan 3x lebih cepat dan membantu menunda proses penuaan.",
     category: "whitening",
-    image: "/images/treatments/sirivana.jpg",
+    image: "",
     duration: "120 menit",
     targetAge: "30 tahun ke atas",
     benefits: [
@@ -151,7 +141,7 @@ export const TREATMENTS: Treatment[] = [
     description:
       "Perawatan premium untuk usia 40 tahun ke atas dengan dosis dan vitamin berkali lipat lebih tinggi.",
     category: "whitening",
-    image: "/images/treatments/chromosome-vvip.jpg",
+    image: "",
     duration: "150 menit",
     targetAge: "40 tahun ke atas",
     benefits: [
@@ -177,7 +167,7 @@ export const TREATMENTS: Treatment[] = [
     description:
       "Teknologi terkini untuk membekukan dan menghilangkan sel lemak secara permanen tanpa prosedur bedah.",
     category: "slimming",
-    image: "/images/treatments/fat-freezing.jpg",
+    image: "",
     duration: "60 menit per area",
     benefits: [
       "Mengurangi lemak membandel",
@@ -198,7 +188,7 @@ export const TREATMENTS: Treatment[] = [
     description:
       "Perawatan untuk membentuk kontur wajah dan mengurangi lemak wajah secara efektif.",
     category: "facial",
-    image: "/images/treatments/face-lipolysis.jpg",
+    image: "",
     duration: "45 menit",
     benefits: ["Wajah lebih tirus", "Kontur tegas", "Tanpa efek samping"],
     packages: [
@@ -215,7 +205,7 @@ export const TREATMENTS: Treatment[] = [
     description:
       "Perawatan khusus area intim wanita dengan teknologi Stem Cell untuk regenerasi dan peremajaan.",
     category: "body",
-    image: "/images/treatments/stem-cell-miss-v.jpg",
+    image: "",
     duration: "60 menit",
     benefits: ["Peremajaan area intim", "Regenerasi sel", "Meningkatkan kepercayaan diri"],
     packages: [{ name: "Single Session", price: 2500000 }],
@@ -230,7 +220,7 @@ export const DOCTORS: Doctor[] = [
     name: "dr. Sarah Amelia",
     title: "dr.",
     specialty: "Aesthetic & Anti-Aging Specialist",
-    photo: "/images/doctors/dr-sarah.jpg",
+    photo: "",
     bio: "Dokter spesialis estetika dengan pengalaman lebih dari 8 tahun dalam bidang perawatan kulit dan anti-aging. Berpengalaman menangani lebih dari 5.000 pasien.",
     education: [
       "S1 Kedokteran Umum – Universitas Indonesia",
@@ -248,7 +238,7 @@ export const DOCTORS: Doctor[] = [
     name: "dr. Anisa Putri",
     title: "dr.",
     specialty: "Skin Whitening & Dermatology",
-    photo: "/images/doctors/dr-anisa.jpg",
+    photo: "",
     bio: "Spesialis whitening dan dermatologi dengan keahlian khusus dalam infus whitening therapy. Telah membantu ribuan pelanggan mendapatkan kulit cerah yang sehat.",
     education: [
       "S1 Kedokteran – Universitas Airlangga",
@@ -265,7 +255,7 @@ export const DOCTORS: Doctor[] = [
     name: "dr. Rizky Fahmi",
     title: "dr.",
     specialty: "Body Contouring & Slimming",
-    photo: "/images/doctors/dr-rizky.jpg",
+    photo: "",
     bio: "Ahli body contouring dan slimming treatment dengan teknologi terkini. Pengalaman 6 tahun dalam menangani program langsing medis.",
     education: [
       "S1 Kedokteran – Universitas Brawijaya",
@@ -288,8 +278,8 @@ export const TESTIMONIALS: Testimonial[] = [
     rating: 5,
     review:
       "Setelah 3 sesi infus whitening Snow White, kulit saya jauh lebih cerah dan merata! Dokternya sangat profesional dan pelayanannya nyaman banget. Sudah rekomendasiin ke semua teman.",
-    beforeImage: "/images/testimonials/revanda-before.jpg",
-    afterImage: "/images/testimonials/revanda-after.jpg",
+    beforeImage: "",
+    afterImage: "",
     branch: "malang",
     date: "2024-05-12",
   },
@@ -355,7 +345,7 @@ export const PRODUCTS: Product[] = [
     description:
       "Serum pencerah kulit dengan kandungan Glutathione, Niacinamide, dan Vitamin C untuk hasil yang optimal.",
     category: "serum",
-    image: "/images/products/glow-serum.jpg",
+    image: "",
     price: 285000,
     volume: "30ml",
     benefits: ["Mencerahkan kulit", "Meratakan tone", "Anti-oksidan"],
@@ -370,7 +360,7 @@ export const PRODUCTS: Product[] = [
     description:
       "Sabun cuci muka dengan formula gentle yang membersihkan sekaligus mencerahkan kulit tanpa efek kering.",
     category: "cleanser",
-    image: "/images/products/facial-wash.jpg",
+    image: "",
     price: 125000,
     volume: "100ml",
     benefits: ["Membersihkan mendalam", "Mencerahkan", "Tidak menyebabkan kering"],
@@ -385,7 +375,7 @@ export const PRODUCTS: Product[] = [
     description:
       "Toner pencerah dengan kandungan AHA ringan dan Hyaluronic Acid untuk kulit terhidrasi dan siap menerima perawatan.",
     category: "toner",
-    image: "/images/products/brightening-toner.jpg",
+    image: "",
     price: 175000,
     volume: "150ml",
     benefits: ["Hidrasi mendalam", "Mengecilkan pori", "Mencerahkan"],
@@ -400,7 +390,7 @@ export const PRODUCTS: Product[] = [
     description:
       "Krim siang dengan SPF 30 yang mencerahkan sekaligus melindungi kulit dari paparan sinar UV.",
     category: "moisturizer",
-    image: "/images/products/day-cream.jpg",
+    image: "",
     price: 210000,
     volume: "30g",
     benefits: ["SPF 30 protection", "Mencerahkan", "Melembabkan"],
@@ -414,7 +404,7 @@ export const PRODUCTS: Product[] = [
     description:
       "Sunscreen dengan perlindungan tinggi yang ringan di kulit, tidak meninggalkan white cast, cocok untuk kulit Asia.",
     category: "sunscreen",
-    image: "/images/products/sunscreen.jpg",
+    image: "",
     price: 165000,
     volume: "40ml",
     benefits: ["SPF 50+ PA++++", "No white cast", "Ringan di kulit", "Water resistant"],
@@ -432,7 +422,7 @@ export const ARTICLES: Article[] = [
     title: "5 Manfaat Infus Whitening yang Wajib Kamu Tahu",
     excerpt:
       "Infus whitening bukan sekadar tren kecantikan — ini adalah prosedur medis yang memberikan manfaat nyata untuk kesehatan kulit.",
-    coverImage: "/images/articles/infus-whitening.jpg",
+    coverImage: "",
     category: "Beauty Hack",
     author: "dr. Sarah Amelia",
     publishedAt: "2024-06-10",
@@ -445,7 +435,7 @@ export const ARTICLES: Article[] = [
     title: "Cara Merawat Kulit Setelah Infus Whitening agar Hasilnya Maksimal",
     excerpt:
       "Setelah melakukan infus whitening, perawatan yang tepat akan menentukan seberapa lama dan maksimal hasilnya.",
-    coverImage: "/images/articles/after-care.jpg",
+    coverImage: "",
     category: "Skincare Tips",
     author: "dr. Anisa Putri",
     publishedAt: "2024-06-05",
@@ -458,7 +448,7 @@ export const ARTICLES: Article[] = [
     title: "Fat Freezing vs Diet: Mana yang Lebih Efektif untuk Tubuh Ideal?",
     excerpt:
       "Perbandingan lengkap antara prosedur fat freezing dan program diet konvensional dalam mencapai tubuh ideal.",
-    coverImage: "/images/articles/fat-freezing.jpg",
+    coverImage: "",
     category: "Body Treatment",
     author: "dr. Rizky Fahmi",
     publishedAt: "2024-05-28",
@@ -471,7 +461,7 @@ export const ARTICLES: Article[] = [
     title: "Kenali 4 Kandungan Utama Infus Whitening dan Fungsinya",
     excerpt:
       "Glutathione, Stem Cell, Collagen, dan Vitamin C&E — inilah bahan-bahan yang bekerja di balik hasil cerah kulit kamu.",
-    coverImage: "/images/articles/ingredients.jpg",
+    coverImage: "",
     category: "Beauty Science",
     author: "dr. Sarah Amelia",
     publishedAt: "2024-05-20",
@@ -490,7 +480,7 @@ export const BRANCHES: Branch[] = [
     phone: "+62 821 4219 6415",
     whatsapp: "6282142196415",
     maps: "https://maps.google.com/?q=Melval+Labskin+Jakarta",
-    image: "/images/branches/jakarta.jpg",
+    image: "",
     operatingHours: [
       { days: "Senin – Jumat", hours: "09:00 – 20:00" },
       { days: "Sabtu – Minggu", hours: "09:00 – 18:00" },
@@ -504,7 +494,7 @@ export const BRANCHES: Branch[] = [
     phone: "+62 821 4219 6415",
     whatsapp: "6282142196415",
     maps: "https://maps.google.com/?q=Melval+Labskin+Malang",
-    image: "/images/branches/malang.jpg",
+    image: "",
     operatingHours: [
       { days: "Senin – Jumat", hours: "09:00 – 20:00" },
       { days: "Sabtu – Minggu", hours: "09:00 – 18:00" },
@@ -518,7 +508,7 @@ export const BRANCHES: Branch[] = [
     phone: "+62 821 4219 6415",
     whatsapp: "6282142196415",
     maps: "https://maps.google.com/?q=Melval+Labskin+Surabaya",
-    image: "/images/branches/surabaya.jpg",
+    image: "",
     operatingHours: [
       { days: "Senin – Jumat", hours: "09:00 – 20:00" },
       { days: "Sabtu – Minggu", hours: "09:00 – 18:00" },
@@ -532,7 +522,7 @@ export const BRANCHES: Branch[] = [
     phone: "+62 821 4219 6415",
     whatsapp: "6282142196415",
     maps: "https://maps.google.com/?q=Melval+Labskin+Bali",
-    image: "/images/branches/bali.jpg",
+    image: "",
     operatingHours: [
       { days: "Senin – Jumat", hours: "09:00 – 20:00" },
       { days: "Sabtu – Minggu", hours: "09:00 – 18:00" },
@@ -547,7 +537,7 @@ export const PROMOS: Promo[] = [
     title: "Flash Sale Infus Whitening",
     subtitle: "Snow White Package",
     description: "Dapatkan infus whitening Snow White dengan harga spesial terbatas!",
-    image: "/images/promos/flash-sale.jpg",
+    image: "",
     badge: "FLASH SALE",
     originalPrice: 500000,
     discountedPrice: 350000,
@@ -563,7 +553,7 @@ export const PROMOS: Promo[] = [
     title: "Beli 5 Gratis 2",
     subtitle: "Chromosome Cell Package",
     description: "Beli paket Chromosome Cell 5 sesi, gratis 2 sesi bonus!",
-    image: "/images/promos/beli5gratis2.jpg",
+    image: "",
     badge: "BOMBASTIS",
     ctaLabel: "Konsultasi Sekarang",
     ctaHref: "/booking",
@@ -574,7 +564,7 @@ export const PROMOS: Promo[] = [
     title: "Langsing 12 Minggu",
     subtitle: "Promo Kilat",
     description: "Program langsing 12 minggu dengan bonus 4x Fat Freezing gratis!",
-    image: "/images/promos/langsing.jpg",
+    image: "",
     badge: "FREE 4x FAT FREEZING",
     originalPrice: 25000000,
     discountedPrice: 17500000,
@@ -658,5 +648,5 @@ export const SEO_DEFAULTS = {
   defaultDescription:
     "Melval Labskin adalah klinik kecantikan spesialis Infuse Whitening & Slimming Treatment dengan tenaga medis profesional. Konsultasi gratis, hasil terjamin.",
   siteUrl: "https://www.melvallabskin.org",
-  ogImage: "/images/og-image.jpg",
+  ogImage: "",
 };

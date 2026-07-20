@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import { Menu, X, ChevronDown, Phone } from "lucide-react";
+import { Menu, X, Phone } from "lucide-react";
 import Logo from "./Logo";
 import ButtonLink from "@/components/ui/ButtonLink";
 import { NAV_ITEMS, BRANCHES } from "@/constants";
@@ -18,7 +18,6 @@ import { buildWhatsAppLink, cn } from "@/lib/utils";
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
-  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const pathname = usePathname();
 
   useEffect(() => {
@@ -50,7 +49,7 @@ export default function Navbar() {
         )}
       >
         <div className="mx-auto flex h-9 max-w-7xl items-center justify-between px-6 font-inter text-xs">
-          <span>3 Cabang: Jakarta · Malang · Surabaya</span>
+          <span>4 Cabang: Jakarta · Malang · Surabaya . Bali</span>
           <a
             href={`tel:${BRANCHES[0].phone.replace(/\s/g, "")}`}
             className="flex items-center gap-1.5 hover:text-gold transition-colors"
@@ -70,8 +69,6 @@ export default function Navbar() {
             <li
               key={item.href}
               className="relative"
-              onMouseEnter={() => item.children && setOpenDropdown(item.label)}
-              onMouseLeave={() => item.children && setOpenDropdown(null)}
             >
               <Link
                 href={item.href}
@@ -81,29 +78,7 @@ export default function Navbar() {
                 )}
               >
                 {item.label}
-                {item.children && <ChevronDown size={14} />}
               </Link>
-
-              {item.children && (
-                <div
-                  className={cn(
-                    "absolute left-0 top-full min-w-[220px] rounded-brand bg-white py-2 shadow-luxury transition-all duration-200",
-                    openDropdown === item.label
-                      ? "translate-y-0 opacity-100"
-                      : "pointer-events-none -translate-y-2 opacity-0"
-                  )}
-                >
-                  {item.children.map((child) => (
-                    <Link
-                      key={child.href}
-                      href={child.href}
-                      className="block px-5 py-2.5 font-inter text-sm text-brand-black hover:bg-gold-50 hover:text-gold-700"
-                    >
-                      {child.label}
-                    </Link>
-                  ))}
-                </div>
-              )}
             </li>
           ))}
         </ul>

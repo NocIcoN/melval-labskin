@@ -18,7 +18,7 @@ export default function ProductCard({ product }: ProductCardProps) {
     <Card className="group flex h-full flex-col">
       <Link href={`/products/${product.slug}`} className="relative block aspect-square overflow-hidden bg-cream-200">
         <Image
-          src={product.image}
+          src={product.image || "/images/products/default.webp"}
           alt={product.name}
           fill
           sizes="(max-width: 768px) 50vw, 25vw"

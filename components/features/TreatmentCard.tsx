@@ -23,7 +23,7 @@ const lowestPrice = treatment.packages?.length
     <Card className="group flex h-full flex-col">
       <Link href={`/treatments/${treatment.slug}`} className="relative block aspect-[4/3] overflow-hidden">
         <Image
-          src={treatment.image}
+          src={treatment.image || "/images/treatments/default.webp"}
           alt={treatment.name}
           fill
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"

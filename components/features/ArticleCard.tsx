@@ -18,7 +18,7 @@ export default function ArticleCard({ article }: ArticleCardProps) {
     <Card className="group flex h-full flex-col">
       <Link href={`/articles/${article.slug}`} className="relative block aspect-[16/10] overflow-hidden">
         <Image
-          src={article.coverImage}
+          src={article.coverImage || "/images/articles/default.webp"}
           alt={article.title}
           fill
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"

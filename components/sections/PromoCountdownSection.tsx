@@ -41,7 +41,7 @@ export default function PromoCountdownSection({ promo }: Props) {
           <div className="grid grid-cols-1 lg:grid-cols-2">
             <div className="relative aspect-[16/10] lg:aspect-auto">
               <Image
-                src={promo.image}
+                src={promo.image || "/images/promos/default.webp"}
                 alt={promo.title}
                 fill
                 sizes="(max-width: 1024px) 100vw, 50vw"
@@ -57,7 +57,7 @@ export default function PromoCountdownSection({ promo }: Props) {
                 {promo.title}
               </h2>
               <p className="mt-2 font-inter text-base text-white/70">{promo.subtitle}</p>
-              <p className="mt-3 font-inter text-sm text-white/60">{promo.description}</p>
+              <p className="mt-3 font-inter text-sm text-white/60">{promo.description ?? "Belum ada deskripsi untuk promo ini."}</p>
 
               {promo.originalPrice && promo.discountedPrice && (
                 <div className="mt-6 flex items-baseline gap-3">

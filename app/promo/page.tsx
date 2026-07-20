@@ -59,6 +59,8 @@ export default function PromoPage() {
       <section className="py-section-sm sm:py-section">
         <div className="mx-auto max-w-7xl px-6 space-y-8">
           {PROMOS.map((promo, i) => {
+            const isValid = promo && promo.title && promo.image && promo.expiresAt;
+            if (!isValid) return null;
             const isEven = i % 2 === 0;
             const discount =
               promo.originalPrice && promo.discountedPrice
@@ -74,7 +76,7 @@ export default function PromoPage() {
                   {/* Image */}
                   <div className={`relative aspect-[16/10] lg:aspect-auto ${!isEven ? "lg:order-2" : ""}`}>
                     <Image
-                      src={promo.image}
+                      src={promo.image || "/images/promos/default.webp"}
                       alt={promo.title}
                       fill
                       sizes="(max-width: 1024px) 100vw, 50vw"
@@ -99,7 +101,7 @@ export default function PromoPage() {
                       {promo.title}
                     </h2>
                     <p className="mt-1 font-inter text-lg text-coral-300">{promo.subtitle}</p>
-                    <p className="mt-3 font-inter text-sm text-white/60">{promo.description}</p>
+                    <p className="mt-3 font-inter text-sm text-white/60">{promo.description || "Belum ada deskripsi untuk promo ini."}</p>
 
                     {promo.originalPrice && promo.discountedPrice && (
                       <div className="mt-6 flex items-baseline gap-3">

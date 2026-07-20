@@ -22,12 +22,15 @@ interface Props {
 }
 
 export default function TreatmentsClient({ treatments }: Props) {
+  const validTreatments = treatments.filter(
+    t => t.slug
+  );
   const [active, setActive] = useState<TreatmentCategory | "all">("all");
 
   const filtered =
     active === "all"
-      ? treatments
-      : treatments.filter((t) => t.category === active);
+      ? validTreatments
+      : validTreatments.filter((t) => t.category === active);
 
   return (
     <>

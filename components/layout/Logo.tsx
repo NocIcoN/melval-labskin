@@ -11,7 +11,7 @@ export interface LogoProps {
 
 export default function Logo({ type = "full", variant = "coral", width, className }: LogoProps) {
   const isIcon = type === "icon";
-  const src = isIcon ? "/images/logo-icon.svg" : "/images/logo-logotype.svg";
+  const src = isIcon ? "/icons/logo-icon.ico" : "/icons/logo-logotype.svg";
   const w = width ?? (isIcon ? 40 : 160);
   const h = isIcon ? Math.round(w / 1.115) : Math.round(w / 1.701);
 

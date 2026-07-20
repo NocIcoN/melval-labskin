@@ -8,15 +8,15 @@ import { cn } from "@/lib/utils";
 
 // Dummy gallery items - replace with real photos from Supabase Storage
 const GALLERY_ITEMS = [
-  { id: "g-001", src: "/images/gallery/clinic-1.jpg", alt: "Interior klinik Melval Jakarta", category: "Klinik" },
-  { id: "g-002", src: "/images/gallery/treatment-1.jpg", alt: "Proses infus whitening", category: "Treatment" },
-  { id: "g-003", src: "/images/gallery/treatment-2.jpg", alt: "Sesi fat freezing", category: "Treatment" },
-  { id: "g-004", src: "/images/gallery/clinic-2.jpg", alt: "Ruang treatment Melval", category: "Klinik" },
-  { id: "g-005", src: "/images/gallery/product-1.jpg", alt: "Produk Melval Skincare", category: "Produk" },
-  { id: "g-006", src: "/images/gallery/team-1.jpg", alt: "Tim dokter Melval Labskin", category: "Tim" },
-  { id: "g-007", src: "/images/gallery/treatment-3.jpg", alt: "Konsultasi dengan dokter", category: "Treatment" },
-  { id: "g-008", src: "/images/gallery/clinic-3.jpg", alt: "Resepsionis Melval Labskin", category: "Klinik" },
-  { id: "g-009", src: "/images/gallery/product-2.jpg", alt: "Rangkaian skincare Melval", category: "Produk" },
+  { id: "g-001", src: "/images/gallery/interior-klinik.webp", alt: "Interior klinik Melval Jakarta", category: "Klinik" },
+  { id: "g-002", src: "/images/gallery/proses-infus.webp", alt: "Proses infus whitening", category: "Treatment" },
+  { id: "g-003", src: "/images/gallery/sesi-fat-freezing.webp", alt: "Sesi fat freezing", category: "Treatment" },
+  { id: "g-004", src: "/images/gallery/ruang-treatment.webp", alt: "Ruang treatment Melval", category: "Klinik" },
+  { id: "g-005", src: "/images/gallery/produk-skincare.webp", alt: "Produk Melval Skincare", category: "Produk" },
+  { id: "g-006", src: "/images/gallery/tim-dokter.webp", alt: "Tim dokter Melval Labskin", category: "Tim" },
+  { id: "g-007", src: "/images/gallery/konsultasi-dokter.webp", alt: "Konsultasi dengan dokter", category: "Treatment" },
+  { id: "g-008", src: "/images/gallery/resepsionis.webp", alt: "Resepsionis Melval Labskin", category: "Klinik" },
+  { id: "g-009", src: "/images/gallery/rangkaian-skincare.webp", alt: "Rangkaian skincare Melval", category: "Produk" },
 ];
 
 const CATEGORIES = ["Semua", "Klinik", "Treatment", "Produk", "Tim"];

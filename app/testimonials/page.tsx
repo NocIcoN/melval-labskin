@@ -16,7 +16,13 @@ export const metadata: Metadata = {
 
 export default async function TestimonialsPage() {
   const testimonials = await getTestimonials();
-  const withBeforeAfter = testimonials.filter((t) => t.beforeImage && t.afterImage).slice(0, 2);
+  if (!testimonials?.length) {
+    return null;
+  }
+  const validTestimonials = testimonials.filter(
+    t => t.name && t.review
+  );
+  const withBeforeAfter = validTestimonials.filter((t) => t.beforeImage && t.afterImage).slice(0, 2);
 
   return (
     <>

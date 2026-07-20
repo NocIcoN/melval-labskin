@@ -19,7 +19,7 @@ export default function TestimonialCard({ testimonial }: TestimonialCardProps) {
   return (
     <Card hover={false} className="flex h-full flex-col p-6">
       <Quote size={28} className="text-gold-200" fill="currentColor" />
-      <RatingStars rating={testimonial.rating} className="mt-3" />
+      <RatingStars rating={testimonial.rating || 0} className="mt-3" />
       <p className="mt-4 flex-1 font-inter text-sm leading-relaxed text-brand-black">
         “{testimonial.review}”
       </p>

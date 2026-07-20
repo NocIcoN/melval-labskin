@@ -62,7 +62,7 @@ export default async function TreatmentDetailPage({ params }: Props) {
           {/* Image */}
           <div className="relative aspect-[4/3] overflow-hidden rounded-brand-xl shadow-luxury">
             <Image
-              src={treatment.image}
+              src={treatment.image || "/images/treatments/default.webp"}
               alt={treatment.name}
               fill
               priority
@@ -99,7 +99,7 @@ export default async function TreatmentDetailPage({ params }: Props) {
               "{treatment.tagline}"
             </p>
             <p className="mt-4 font-inter text-base leading-relaxed text-brand-gray">
-              {treatment.description}
+              {treatment.description || "Belum ada deskripsi untuk treatment ini."}
             </p>
 
             <div className="mt-6 flex flex-wrap gap-4">

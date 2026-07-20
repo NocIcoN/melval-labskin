@@ -5,6 +5,7 @@ import { getDoctors } from "@/lib/sanity/fetchers";
 
 export default async function DoctorsSection() {
   const doctors = await getDoctors();
+  const visibleDoctors = doctors.slice(0, 4);
 
   return (
     <section className="py-section-sm sm:py-section">
@@ -14,8 +15,8 @@ export default async function DoctorsSection() {
           title="Ditangani Langsung oleh Dokter Berpengalaman"
           description="Setiap treatment di Melval Labskin dilakukan dan diawasi oleh dokter bersertifikat dengan pengalaman bertahun-tahun di bidang estetika medis."
         />
-        <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {doctors.map((doctor) => (
+        <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {visibleDoctors.map((doctor) => (
             <DoctorCard key={doctor.id} doctor={doctor} />
           ))}
         </div>

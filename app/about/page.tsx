@@ -103,7 +103,7 @@ export default function AboutPage() {
             </div>
             <div className="relative aspect-[4/3] overflow-hidden rounded-brand-xl shadow-luxury">
               <Image
-                src="/images/about/clinic-hero.jpg"
+                src="/images/about/hero.webp"
                 alt="Klinik Melval Labskin"
                 fill
                 priority
@@ -257,7 +257,7 @@ export default function AboutPage() {
             </div>
             <div className="relative aspect-square overflow-hidden rounded-brand-xl shadow-luxury">
               <Image
-                src="/images/about/team.jpg"
+                src="/images/about/team.webp"
                 alt="Tim Melval Labskin"
                 fill
                 sizes="(max-width: 1024px) 100vw, 50vw"

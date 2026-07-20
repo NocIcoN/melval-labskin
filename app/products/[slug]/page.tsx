@@ -62,7 +62,7 @@ export default async function ProductDetailPage({ params }: Props) {
           {/* Image */}
           <div className="relative aspect-square overflow-hidden rounded-brand-xl bg-cream-200 shadow-luxury">
             <Image
-              src={product.image}
+              src={product.image || "/images/products/default.webp"}
               alt={product.name}
               fill
               priority
@@ -95,7 +95,7 @@ export default async function ProductDetailPage({ params }: Props) {
               "{product.tagline}"
             </p>
             <p className="mt-4 font-inter text-base leading-relaxed text-brand-gray">
-              {product.description}
+              {product.description || "Belum ada deskripsi untuk produk ini."}
             </p>
 
             <div className="mt-4 flex flex-wrap gap-3">

@@ -69,7 +69,7 @@ export default function Hero() {
         <div className="relative z-10 animate-fade-in-slow">
           <div className="relative mx-auto aspect-[4/5] max-w-md overflow-hidden rounded-brand-xl shadow-luxury">
             <Image
-              src="/images/hero/hero-main.jpg"
+              src="/images/hero/hero.webp"
               alt="Perawatan kulit premium di Melval Labskin"
               fill
               priority

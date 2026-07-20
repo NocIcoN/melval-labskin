@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Hero from "@/components/sections/Hero";
 import StatsSection from "@/components/sections/StatsSection";
 import CTASection from "@/components/sections/CTASection";
+import FeaturedTreatments from "@/components/sections/FeaturedTreatments";
 
 export const metadata: Metadata = {
   title: "Spesialis Infuse Whitening & Slimming Treatment",
@@ -14,6 +15,7 @@ export default function HomePage() {
     <>
       <Hero />
       <StatsSection />
+      <FeaturedTreatments />
       <CTASection />
     </>
   );

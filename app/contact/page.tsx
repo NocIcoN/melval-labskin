@@ -2,7 +2,6 @@
 
 import { useState, type FormEvent } from "react";
 import { MapPin, Phone, Clock, Mail, MessageCircle, CheckCircle2, Loader2 } from "lucide-react";
-import SectionHeading from "@/components/ui/SectionHeading";
 import Button from "@/components/ui/Button";
 import { BRANCHES, WHATSAPP_NUMBER } from "@/constants";
 import { buildWhatsAppLink, cn } from "@/lib/utils";

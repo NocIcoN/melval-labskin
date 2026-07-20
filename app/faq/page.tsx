@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import SectionHeading from "@/components/ui/SectionHeading";
 import AccordionItem from "@/components/ui/AccordionItem";
 import ButtonLink from "@/components/ui/ButtonLink";
 import { getFAQs } from "@/lib/sanity/fetchers";

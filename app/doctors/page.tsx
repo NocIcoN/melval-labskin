@@ -22,6 +22,13 @@ const TRUST_POINTS = [
 
 export default async function DoctorsPage() {
   const [doctors, branches] = await Promise.all([getDoctors(), getBranches()]);
+  if (!doctors || !branches) {
+    return (
+      <div className="flex min-h-screen items-center justify-center pt-32">
+        <p className="font-inter text-brand-gray">Gagal memuat data. Silakan coba lagi.</p>
+      </div>
+    );
+  }
 
   return (
     <>
@@ -73,7 +80,7 @@ export default async function DoctorsPage() {
                     <div className="mt-5">
                       <h3 className="mb-2 font-inter text-xs font-semibold uppercase tracking-wide text-brand-gray">Pendidikan</h3>
                       <ul className="space-y-1.5">
-                        {doctor.education.map((edu, i) => (
+                        {(doctor.education ?? []).map((edu, i) => (
                           <li key={i} className="flex items-start gap-2">
                             <GraduationCap size={14} className="mt-0.5 shrink-0 text-coral" />
                             <span className="font-inter text-xs text-brand-gray">{edu}</span>
@@ -84,7 +91,7 @@ export default async function DoctorsPage() {
                     <div className="mt-4">
                       <h3 className="mb-2 font-inter text-xs font-semibold uppercase tracking-wide text-brand-gray">Sertifikasi</h3>
                       <div className="flex flex-wrap gap-2">
-                        {doctor.certifications.map((cert, i) => (
+                        {(doctor.certifications ?? []).map((cert, i) => (
                           <span key={i} className="rounded-full bg-coral-50 px-3 py-1 font-inter text-xs text-coral-700">{cert}</span>
                         ))}
                       </div>

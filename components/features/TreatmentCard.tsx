@@ -60,7 +60,7 @@ const lowestPrice = treatment.packages?.length
           <div>
             <span className="font-inter text-xs text-brand-gray">Mulai dari</span>
             <p className="font-playfair text-lg font-semibold text-gold-700">
-              {formatCurrency(lowestPrice)}
+              {lowestPrice > 0 ? formatCurrency(lowestPrice) : "Hubungi kami"}
             </p>
           </div>
           <Link

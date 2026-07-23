@@ -87,7 +87,7 @@ export default function Navbar() {
           <ButtonLink href={buildWhatsAppLink()} variant="outline" size="sm">
             Konsultasi
           </ButtonLink>
-          <ButtonLink href="/booking" variant="primary" size="sm">
+          <ButtonLink href="/booking-payment" variant="primary" size="sm">
             Booking Sekarang
           </ButtonLink>
         </div>

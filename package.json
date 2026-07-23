@@ -31,7 +31,8 @@
     "sanity": "^3.57.0",
     "styled-components": "^6.4.4",
     "swr": "^2.2.5",
-    "tailwind-merge": "^2.4.0"
+    "tailwind-merge": "^2.4.0",
+    "zustand": "^5.0.14"
   },
   "devDependencies": {
     "@types/node": "^20",

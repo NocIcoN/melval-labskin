@@ -2,11 +2,13 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowLeft, Clock, Calendar, User } from "lucide-react";
+import { ArrowLeft, Clock, Calendar, User, ImageOff } from "lucide-react";
+import { PortableText } from "@portabletext/react";
+import type { PortableTextComponents } from "@portabletext/react";
 import Badge from "@/components/ui/Badge";
 import ArticleCard from "@/components/features/ArticleCard";
 import CTASection from "@/components/sections/CTASection";
-import { ARTICLES } from "@/constants";
+import { getArticleBySlug, getArticles } from "@/lib/sanity/fetchers";
 import { formatDate } from "@/lib/utils";
 
 interface Props {
@@ -14,12 +16,13 @@ interface Props {
 }
 
 export async function generateStaticParams() {
-  return ARTICLES.map((a) => ({ slug: a.slug }));
+  const articles = await getArticles();
+  return articles.map((a) => ({ slug: a.slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const article = ARTICLES.find((a) => a.slug === slug);
+  const article = await getArticleBySlug(slug);
   if (!article) return {};
   return {
     title: article.title,
@@ -28,19 +31,112 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     openGraph: {
       title: article.title,
       description: article.excerpt,
-      images: [{ url: article.coverImage }],
+      images: article.coverImage ? [{ url: article.coverImage }] : [],
     },
   };
 }
 
+const portableTextComponents: PortableTextComponents = {
+  block: {
+    normal: ({ children }: { children?: React.ReactNode }) => (
+      <p className="font-inter text-base leading-relaxed text-brand-gray">{children}</p>
+    ),
+    h1: ({ children }: { children?: React.ReactNode }) => (
+      <h1 className="mt-8 mb-3 font-playfair text-3xl text-brand-black">{children}</h1>
+    ),
+    h2: ({ children }: { children?: React.ReactNode }) => (
+      <h2 className="mt-8 mb-3 font-playfair text-2xl text-brand-black">{children}</h2>
+    ),
+    h3: ({ children }: { children?: React.ReactNode }) => (
+      <h3 className="mt-6 mb-2 font-playfair text-xl text-brand-black">{children}</h3>
+    ),
+    h4: ({ children }: { children?: React.ReactNode }) => (
+      <h4 className="mt-5 mb-2 font-playfair text-lg text-brand-black">{children}</h4>
+    ),
+    h5: ({ children }: { children?: React.ReactNode }) => (
+      <h5 className="mt-4 mb-2 font-playfair text-base text-brand-black">{children}</h5>
+    ),
+    h6: ({ children }: { children?: React.ReactNode }) => (
+      <h6 className="mt-4 mb-2 font-playfair text-sm text-brand-black">{children}</h6>
+    ),
+    blockquote: ({ children }: { children?: React.ReactNode }) => (
+      <blockquote className="my-6 border-l-4 border-coral pl-5 font-inter italic text-brand-gray">
+        {children}
+      </blockquote>
+    ),
+  },
+  marks: {
+    strong: ({ children }: { children?: React.ReactNode }) => (
+      <strong className="font-semibold text-brand-black">{children}</strong>
+    ),
+    em: ({ children }: { children?: React.ReactNode }) => (
+      <em className="italic">{children}</em>
+    ),
+    underline: ({ children }: { children?: React.ReactNode }) => (
+      <span className="underline">{children}</span>
+    ),
+    link: ({ value, children }: { value?: { href?: string }; children?: React.ReactNode }) => (
+      <a
+        href={value?.href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="text-coral underline hover:text-coral-dark"
+      >
+        {children}
+      </a>
+    ),
+  },
+  list: {
+    bullet: ({ children }: { children?: React.ReactNode }) => (
+      <ul className="ml-4 list-disc space-y-2 font-inter text-base text-brand-gray">
+        {children}
+      </ul>
+    ),
+    number: ({ children }: { children?: React.ReactNode }) => (
+      <ol className="ml-4 list-decimal space-y-2 font-inter text-base text-brand-gray">
+        {children}
+      </ol>
+    ),
+  },
+  listItem: {
+    bullet: ({ children }: { children?: React.ReactNode }) => <li>{children}</li>,
+    number: ({ children }: { children?: React.ReactNode }) => <li>{children}</li>,
+  },
+  types: {
+    image: ({ value }: { value: { asset?: { url?: string }; alt?: string } }) => {
+      if (!value?.asset?.url) return null;
+      return (
+        <div className="my-8 overflow-hidden rounded-brand-lg shadow-card">
+          <Image
+            src={value.asset.url}
+            alt={value.alt ?? "Gambar artikel"}
+            width={800}
+            height={500}
+            className="w-full object-cover"
+          />
+          {value.alt && (
+            <p className="bg-brand-gray-light px-4 py-2 text-center font-inter text-xs text-brand-gray">
+              {value.alt}
+            </p>
+          )}
+        </div>
+      );
+    },
+  },
+};
+
 export default async function ArticleDetailPage({ params }: Props) {
   const { slug } = await params;
-  const article = ARTICLES.find((a) => a.slug === slug);
+  const article = await getArticleBySlug(slug);
   if (!article) notFound();
 
-  const related = ARTICLES.filter(
-    (a) => a.category === article.category && a.id !== article.id
-  ).slice(0, 3);
+  const allArticles = await getArticles();
+  const related = allArticles
+    .filter((a) => a.category === article.category && a.id !== article.id)
+    .slice(0, 3);
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const body = (article as any).body;
 
   return (
     <>
@@ -68,97 +164,78 @@ export default async function ArticleDetailPage({ params }: Props) {
             Kembali ke Artikel
           </Link>
 
-          <Badge variant="dark">{article.category}</Badge>
+          {article.category && <Badge variant="dark">{article.category}</Badge>}
+
           <h1 className="mt-4 font-playfair text-display-sm text-brand-black sm:text-display-md">
             {article.title}
           </h1>
 
           <div className="mt-5 flex flex-wrap items-center gap-5 font-inter text-sm text-brand-gray">
-            <span className="flex items-center gap-1.5">
-              <User size={14} />
-              {article.author}
-            </span>
-            <span className="flex items-center gap-1.5">
-              <Calendar size={14} />
-              {formatDate(article.publishedAt)}
-            </span>
-            <span className="flex items-center gap-1.5">
-              <Clock size={14} />
-              {article.readingTime} menit baca
-            </span>
+            {article.author && (
+              <span className="flex items-center gap-1.5">
+                <User size={14} />
+                {article.author}
+              </span>
+            )}
+            {article.publishedAt && (
+              <span className="flex items-center gap-1.5">
+                <Calendar size={14} />
+                {formatDate(article.publishedAt)}
+              </span>
+            )}
+            {article.readingTime && (
+              <span className="flex items-center gap-1.5">
+                <Clock size={14} />
+                {article.readingTime} menit baca
+              </span>
+            )}
           </div>
         </div>
       </section>
 
       {/* Cover image */}
-      <div className="mx-auto max-w-4xl px-6">
-        <div className="relative aspect-[16/9] overflow-hidden rounded-brand-xl shadow-luxury">
-          <Image
-            src={article.coverImage}
-            alt={article.title}
-            fill
-            priority
-            sizes="(max-width: 896px) 100vw, 896px"
-            className="object-cover"
-          />
+      {article.coverImage ? (
+        <div className="mx-auto max-w-4xl px-6">
+          <div className="relative aspect-[16/9] overflow-hidden rounded-brand-xl shadow-luxury">
+            <Image
+              src={article.coverImage}
+              alt={article.title}
+              fill
+              priority
+              sizes="(max-width: 896px) 100vw, 896px"
+              className="object-cover"
+            />
+          </div>
         </div>
-      </div>
+      ) : (
+        <div className="mx-auto max-w-4xl px-6">
+          <div className="flex aspect-[16/9] items-center justify-center rounded-brand-xl bg-cream-200">
+            <ImageOff size={40} className="text-brand-gray/30" />
+          </div>
+        </div>
+      )}
 
       {/* Article body */}
       <article className="mx-auto max-w-3xl px-6 py-12">
-        {/* Excerpt as lead paragraph */}
-        <p className="font-inter text-lg font-medium leading-relaxed text-brand-black">
-          {article.excerpt}
-        </p>
+        {article.excerpt && (
+          <p className="font-inter text-lg font-medium leading-relaxed text-brand-black">
+            {article.excerpt}
+          </p>
+        )}
 
-        {/* Dummy body content - replace with CMS content later */}
-        <div className="prose-melval mt-8 space-y-6 font-inter text-base leading-relaxed text-brand-gray">
-          <p>
-            Perawatan kulit yang tepat dimulai dari pemahaman mendalam tentang kebutuhan
-            kulit kamu. Setiap orang memiliki jenis kulit yang berbeda, dan pendekatan
-            yang personal adalah kunci untuk mendapatkan hasil yang optimal.
-          </p>
-          <p>
-            Di Melval Labskin, kami percaya bahwa setiap treatment harus disesuaikan
-            dengan kondisi kulit, usia, dan tujuan kecantikan masing-masing pelanggan.
-            Itulah mengapa setiap sesi dimulai dengan konsultasi mendalam bersama dokter.
-          </p>
+        {body ? (
+          <div className="mt-8 space-y-5">
+            <PortableText value={body} components={portableTextComponents} />
+          </div>
+        ) : (
+          <div className="mt-8 rounded-brand-lg bg-cream p-6 text-center">
+            <p className="font-inter text-sm text-brand-gray">
+              Konten artikel sedang disiapkan.
+            </p>
+          </div>
+        )}
 
-          <h2 className="font-playfair text-2xl text-brand-black">
-            Mengapa Konsultasi Itu Penting?
-          </h2>
-          <p>
-            Konsultasi bukan sekadar formalitas. Ini adalah saat di mana dokter kami
-            benar-benar memahami kondisi kulit kamu, riwayat perawatan sebelumnya,
-            dan apa yang ingin kamu capai. Dari sini, kami bisa merancang program
-            perawatan yang paling tepat dan efektif untuk kamu.
-          </p>
-          <p>
-            Banyak pelanggan yang datang ke klinik kami sudah pernah mencoba berbagai
-            produk dan treatment di tempat lain tanpa hasil yang memuaskan. Setelah
-            menjalani konsultasi dan program yang tepat di Melval Labskin, mereka
-            akhirnya mendapatkan perubahan yang selama ini mereka inginkan.
-          </p>
-
-          <h2 className="font-playfair text-2xl text-brand-black">
-            Tips Merawat Kulit Setelah Treatment
-          </h2>
-          <p>
-            Setelah menjalani treatment di klinik, perawatan mandiri di rumah sangat
-            menentukan seberapa lama dan maksimal hasilnya bertahan. Beberapa hal
-            penting yang perlu diperhatikan:
-          </p>
-          <ul className="ml-4 space-y-2 list-disc">
-            <li>Gunakan sunscreen setiap hari, bahkan saat di dalam ruangan</li>
-            <li>Jaga hidrasi kulit dengan moisturizer yang sesuai jenis kulit</li>
-            <li>Hindari paparan sinar matahari langsung terutama di jam 10.00–14.00</li>
-            <li>Ikuti rekomendasi produk skincare dari dokter yang menanganimu</li>
-            <li>Lakukan treatment follow-up sesuai jadwal yang disarankan</li>
-          </ul>
-        </div>
-
-        {/* Tags */}
-        {article.tags && (
+        {article.tags && article.tags.length > 0 && (
           <div className="mt-10 flex flex-wrap gap-2 border-t border-brand-border pt-6">
             {article.tags.map((tag) => (
               <span

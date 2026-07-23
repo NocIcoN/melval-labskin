@@ -15,6 +15,7 @@ import {
   flashSalePromoQuery,
   faqsQuery,
   branchesQuery,
+  galleryQuery
 } from "./queries";
 
 // Fallback constants (dummy data) used when Sanity is not yet configured
@@ -27,6 +28,7 @@ import {
   PROMOS,
   FAQS,
   BRANCHES,
+  GALLERY_ITEMS,
 } from "@/constants";
 
 import type {
@@ -38,6 +40,7 @@ import type {
   Promo,
   FAQ,
   Branch,
+  GalleryItem,
 } from "@/types";
 
 /**
@@ -173,4 +176,11 @@ export async function getBranches(): Promise<Branch[]> {
   if (!isSanityConfigured()) return BRANCHES;
   const data = await fetchSanity<Branch>(branchesQuery);
   return data.length ? data : BRANCHES;
+}
+
+// ─── Gallery ────────────────────────────────────────────────
+export async function getGalleryItems(): Promise<GalleryItem[]> {
+  if (!isSanityConfigured()) return [];
+  const data = await fetchSanity<GalleryItem>(galleryQuery);
+  return data ?? [];
 }

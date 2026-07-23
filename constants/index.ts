@@ -9,6 +9,7 @@ import type {
   Promo,
   FAQ,
   StatItem,
+  GalleryItem,
 } from "@/types";
 
 // ─── Navigation ─────────────────────────────────────────────
@@ -650,3 +651,23 @@ export const SEO_DEFAULTS = {
   siteUrl: "https://www.melvallabskin.org",
   ogImage: "",
 };
+
+// ─── Gallery Items ─────────────────────────────────────────
+export const GALLERY_ITEMS: GalleryItem[] = [
+  {
+    id: "g-001",
+    title: "Before & After Infus Whitening",
+    description: "Transformasi kulit pelanggan setelah 3 sesi infus whitening.",
+    src: "",
+    alt: "Before and after infus whitening",
+    category: "Infus Whitening",
+  },
+  {
+    id: "g-002",
+    title: "Fat Freezing Results",
+    description: "Hasil nyata pengurangan lemak setelah 2 sesi fat freezing.",
+    src: "",
+    alt: "Fat freezing results",
+    category: "Fat Freezing",
+  },
+];

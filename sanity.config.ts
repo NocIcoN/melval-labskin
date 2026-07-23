@@ -8,8 +8,10 @@ export default defineConfig({
   name: "melval-labskin",
   title: "Melval Labskin CMS",
   basePath: "/studio",
+
   projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID!,
   dataset: process.env.NEXT_PUBLIC_SANITY_DATASET ?? "production",
+
   plugins: [
     structureTool({
       structure: (S: StructureBuilder) =>
@@ -24,9 +26,13 @@ export default defineConfig({
             S.listItem().title("🎁 Promo").schemaType("promo").child(S.documentTypeList("promo")),
             S.listItem().title("❓ FAQ").schemaType("faq").child(S.documentTypeList("faq")),
             S.listItem().title("🏢 Cabang").schemaType("branch").child(S.documentTypeList("branch")),
+            S.listItem().title("🖼️ Galeri").schemaType("gallery").child(S.documentTypeList("gallery")),
           ]),
     }),
     visionTool(),
   ],
-  schema: { types: schemas },
+
+  schema: {
+    types: schemas,
+  },
 });

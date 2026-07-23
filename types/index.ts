@@ -100,6 +100,7 @@ export interface Article {
   title: string;
   excerpt: string;
   content?: string;
+  body?: unknown;
   coverImage: string;
   category: string;
   author: string;
@@ -179,6 +180,8 @@ export interface GalleryItem {
   id: string;
   src: string;
   alt: string;
+  title?: string;
+  description?: string;
   category?: string;
   caption?: string;
 }

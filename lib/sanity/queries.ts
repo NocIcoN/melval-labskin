@@ -240,3 +240,13 @@ export const branchesQuery = `*[_type == "branch"] | order(_createdAt asc) {
   "image": image.asset->url,
   operatingHours
 }`;
+
+// ─── Gallery ────────────────────────────────────────────────
+export const galleryQuery = `*[_type == "gallery"] | order(order asc, _createdAt desc) {
+  _id,
+  "id": _id,
+  "src": image.asset->url,
+  alt,
+  category,
+  caption
+}`;
